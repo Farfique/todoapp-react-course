@@ -5,19 +5,43 @@ import {faExclamation} from '@fortawesome/free-solid-svg-icons';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default class TodoListItem extends Component {
+    state = {
+        done: false,
+        important: false
+    };
+
+    onLabelClick = () => {
+        this.setState(({done}) => {
+            return {
+                done: !done
+            }            
+        });
+    };
+    onMarkImportant = () => {
+        this.setState(({important}) => {
+            return {
+                important: !important
+            }            
+        });
+    };
     
     render(){
-        const {label, important = false} = this.props;
+        const {label } = this.props;
+        const { done, important } = this.state;
 
-        const style = {
-            color: important? 'steelblue' : 'black',
-            fontWeight: important? 'bold' : 'normal'
+        let classNames = 'todo-list-item';
+        if (done){
+            classNames += ' done';
+        }
+
+        if (important){
+            classNames += ' important';
         }
 
         return (
-            <span className="todo-list-item">
+            <span className={ classNames }>
                 <span 
-                    style={style}
+                    onClick={ this.onLabelClick }
                     className="todo-list-item-label">
                     { label }
                 </span>
@@ -28,7 +52,8 @@ export default class TodoListItem extends Component {
                 </button>
                 <button 
                     type="button"
-                    className="btn btn-outline-success btn-sm">
+                    className="btn btn-outline-success btn-sm"
+                    onClick={this.onMarkImportant}>
                     <FontAwesomeIcon icon={faExclamation} />
                 </button>
             </span>
