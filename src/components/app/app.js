@@ -23,7 +23,7 @@ const data = [
         <SearchPanel />
         <ItemStatusFilter />
       </div>     
-      <TodoList todos={data} />
+      <TodoList todos={data} onDeleted={(id) => console.log('del ', id)}/>
     </div>
 );
 };
