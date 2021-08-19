@@ -4,11 +4,3 @@
     width: 600px;
     margin-top: 2%;
 }
-#panel {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-}
-
-.block_margin{
-    margin-bottom: 1rem;
-}
