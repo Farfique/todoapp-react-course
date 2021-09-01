@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './add-item.css';
 
-const AddItem = ({addItem}) => {
-    return (
-        <div className="add-item">
-            <button className="btn btn-outline-secondary"
-            onClick={() => addItem('Hello world')}
-            id="addNewTask">Add</button>
-        </div>
-
-    )
+export default class AddItem extends Component {
+   
+    state = {
+        label: ''
+    }
+    onLabelChange = (event) => {
+        this.setState({
+            label: event.target.value
+        })
+    }
+    onSubmit = (event) => {
+        event.preventDefault();
+        this.props.addItem(this.state.label);
+        this.setState({
+            label: ''
+        })
+    }
+    render(){
+        return (
+            <form className="add-item d-flex"
+            onSubmit = { this.onSubmit }>
+                <input type="text"
+                    className="add-item-text flex-grow-1"
+                    onChange={this.onLabelChange}
+                    placeholder="What needs to be done"
+                    value = { this.state.label }/>
+                <button 
+                    className="btn btn-outline-secondary"
+                    id="addNewTask">Add</button>
+            </form>
+    
+        )
+    }
 
 }
-
-export default AddItem;
