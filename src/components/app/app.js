@@ -59,7 +59,6 @@ export default class App extends Component {
                 data: this.toggleProperty(data, id, 'important')
             }
         });
-        console.log('Toggle Important: ', id);
     };
 
     onToggleDone = (id) => {
@@ -68,9 +67,6 @@ export default class App extends Component {
                 data: this.toggleProperty(data, id, 'done')
             }
         });
-
-
-        console.log('Toggle Done: ', id);
     };
 
     search = (text) => {
