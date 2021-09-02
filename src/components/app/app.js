@@ -23,7 +23,9 @@ export default class App extends Component {
             this.createTodoItem("Drink Coffee"),
             this.createTodoItem("Build React App"),
             this.createTodoItem("Have a lunch"),  
-          ]
+          ],
+        search: '',
+        filter: 'all'
     }
 
     deleteItem = (id) => {
@@ -71,6 +73,25 @@ export default class App extends Component {
         console.log('Toggle Done: ', id);
     };
 
+    search = (text) => {
+        this.setState({
+            search: text
+        })
+    }
+
+    filter = (event) => {
+        this.setState({
+            filter: event.target.value
+        })
+    }
+
+    showFiltered(){
+        return this.state.data.filter((item) => {
+            let filter = (this.state.filter === 'all') || (this.state.filter === 'done' && item.done) || (this.state.filter === 'active' && !item.done)
+            return item.label.toLowerCase().includes(this.state.search.toLowerCase()) && filter;
+        })
+    }
+
     render() {
         const doneCount = this.state.data.filter((el) => el.done).length;
         const todoCount = this.state.data.length - doneCount;
@@ -79,11 +100,14 @@ export default class App extends Component {
             <div>
               <AppHeader toDo={ todoCount } done={ doneCount }/>
               <div id="panel" className="block_margin">
-                <SearchPanel />
-                <ItemStatusFilter />
+                <SearchPanel 
+                    onSearch={this.search}/>
+                <ItemStatusFilter 
+                    filter={ this.state.filter }
+                    onFilter = { this.filter } />
               </div>     
               <TodoList 
-                todos={this.state.data} 
+                todos={this.showFiltered()} 
                 onDeleted={(id) => this.deleteItem(id)}
                 onToggleImportant = {this.onToggleImportant}
                 onToggleDone = {this.onToggleDone}/>
