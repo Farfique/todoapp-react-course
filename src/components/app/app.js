@@ -75,9 +75,9 @@ export default class App extends Component {
         })
     }
 
-    filter = (event) => {
+    filter = (value) => {
         this.setState({
-            filter: event.target.value
+            filter: value
         })
     }
 
